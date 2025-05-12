@@ -1,19 +1,15 @@
 const mainContainer = document.querySelector('#grid-wrapper');
-console.log(mainContainer.attributes)
 
 let pixelCount = 30;
 let requiredPixels = pixelCount * pixelCount;
-console.log(requiredPixels);
 
 function calcGrid(container, pixels) {
-   console.log(container);
    let containerHeight = container.clientHeight;
    let size = containerHeight / pixels;
    return (Math.round(size * 100) / 100).toFixed(2);
 };
 
 let pixelResult = calcGrid(mainContainer, pixelCount);
-console.log(pixelResult);
 
 function formGrid(pixelNumber, pixelSize) {
    for (let i = 0; i < pixelNumber; i++) {
