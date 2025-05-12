@@ -1,6 +1,6 @@
 const mainContainer = document.querySelector('#grid-wrapper');
 
-let pixelCount = 30;
+let pixelCount = 20;
 let requiredPixels = pixelCount * pixelCount;
 
 function calcGrid(container, pixels) {
