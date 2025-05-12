@@ -1,14 +1,15 @@
 const mainContainer = document.querySelector('#grid-wrapper');
 console.log(mainContainer.attributes)
 
-let pixelCount = 16;
+let pixelCount = 30;
 let requiredPixels = pixelCount * pixelCount;
 console.log(requiredPixels);
 
 function calcGrid(container, pixels) {
-   let containerHeight = container.offsetHeight;
+   console.log(container);
+   let containerHeight = container.clientHeight;
    let size = containerHeight / pixels;
-   return size;
+   return (Math.round(size * 100) / 100).toFixed(2);
 };
 
 let pixelResult = calcGrid(mainContainer, pixelCount);
@@ -19,9 +20,20 @@ function formGrid(pixelNumber, pixelSize) {
       let pixel = document.createElement('div');
       pixel.classList.add('pixel');
       pixel.setAttribute("style", "width:" + pixelSize + "px;height:" + pixelSize + "px;");
-      pixel.innerHTML = i + 1;
       mainContainer.appendChild(pixel);
    }
 };
 
 formGrid(requiredPixels, pixelResult);
+
+// Hover Effects
+function hoverFunctionality() {
+   let elements = document.getElementsByClassName("pixel");
+
+   for (let i = 0; i < elements.length; i++) {
+      elements[i].addEventListener('mouseenter', function (e) {
+         this.classList.add('black');
+      }, false);
+   };
+};
+hoverFunctionality();
