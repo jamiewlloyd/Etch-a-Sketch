@@ -1,3 +1,13 @@
+body {
+   font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#title {
+   font-size: 60px;
+   width: 100%;
+   text-align: center;
+}
+
 #grid-wrapper {
    display: flex;
    flex-wrap: wrap;
@@ -9,4 +19,98 @@
 
 .black {
    background-color: black;
+}
+
+.button-container {
+   max-width: 100%;
+   display: flex;
+   justify-content: center;
+   margin: 20px;
+}
+
+.button {
+   padding: 0.8em 1.8em;
+   margin: 10px;
+   border: none;
+   outline: none;
+   color: #ffffff;
+   background: #222;
+   cursor: pointer;
+   position: relative;
+   z-index: 0;
+   border-radius: 25px;
+   user-select: none;
+   -webkit-user-select: none;
+   touch-action: manipulation;
+   font-weight: bold;
+   font-size: 16px;
+}
+
+.magic-button {
+   color: #222;
+   background: #fff;
+}
+
+.magic-button:before {
+   content: "";
+   background: linear-gradient(45deg,
+         #ff0000,
+         #ff7300,
+         #fffb00,
+         #48ff00,
+         #00ffd5,
+         #002bff,
+         #7a00ff,
+         #ff00c8,
+         #ff0000);
+   position: absolute;
+   top: -2px;
+   left: -2px;
+   background-size: 400%;
+   z-index: -1;
+   filter: blur(5px);
+   -webkit-filter: blur(5px);
+   width: calc(100% + 4px);
+   height: calc(100% + 4px);
+   animation: glowing-button 20s linear infinite;
+   transition: opacity 0.3s ease-in-out;
+   border-radius: 25px;
+}
+
+@keyframes glowing-button {
+   0% {
+      background-position: 0 0;
+   }
+
+   50% {
+      background-position: 400% 0;
+   }
+
+   100% {
+      background-position: 0 0;
+   }
+}
+
+.magic-button:after {
+   z-index: -1;
+   content: "";
+   position: absolute;
+   width: 100%;
+   height: 100%;
+   background: #fff;
+   left: 0;
+   top: 0;
+   border-radius: 25px;
+}
+
+#clear-canvas {
+   color: #ff8989;
+}
+
+#clear-canvas {
+   color: #ff8989;
+}
+
+#shade-mode {
+   background-color: #545454;
 }

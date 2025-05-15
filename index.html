@@ -7,11 +7,20 @@
    <meta name="author" content="Jamie">
    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
    <link rel="stylesheet" href="./css/style.css">
-   <title>Title</title>
+   <title>Etch A Sketch</title>
 </head>
 
 <body>
-   <button id="grid-size">Change Grid Size</button>
+   <h1 id="title">Etch A Sketch</h1>
+   <div class="button-container">
+      <button id="grid-size" class="button">Change Pixel Size</button>
+      <button id="clear-canvas" class="button">Clear Canvas</button>
+   </div>
+   <div class="button-container">
+      <button id="shade-mode" class="button" role="button">Shade Mode</button>
+      <button id="Random-mode" class="button rainbow-letters" role="button">Random Mode</button>
+      <button id="magic-mode" class="button magic-button" role="button">Magic Mode</button>
+   </div>
    <div id="grid-wrapper"></div>
    <script type="text/javascript" src="./js/script.js"></script>
 </body>
