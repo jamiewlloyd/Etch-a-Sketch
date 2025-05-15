@@ -13,12 +13,9 @@ body {
    flex-wrap: wrap;
    width: 800px;
    height: 800px;
-   border: 2px solid black;
+   border: 4px solid black;
    margin: 50px auto;
-}
-
-.black {
-   background-color: black;
+   position: relative;
 }
 
 .button-container {
@@ -53,42 +50,31 @@ body {
 
 .magic-button:before {
    content: "";
-   background: linear-gradient(45deg,
-         #ff0000,
-         #ff7300,
-         #fffb00,
-         #48ff00,
-         #00ffd5,
-         #002bff,
-         #7a00ff,
-         #ff00c8,
-         #ff0000);
+   background: linear-gradient(90deg,
+         rgba(255, 0, 0, 1) 0%,
+         rgba(255, 154, 0, 1) 10%,
+         rgba(208, 222, 33, 1) 20%,
+         rgba(79, 220, 74, 1) 30%,
+         rgba(63, 218, 216, 1) 40%,
+         rgba(47, 201, 226, 1) 50%,
+         rgba(28, 127, 238, 1) 60%,
+         rgba(95, 21, 242, 1) 70%,
+         rgba(186, 12, 248, 1) 80%,
+         rgba(251, 7, 217, 1) 90%,
+         rgba(255, 0, 0, 1) 100%);
    position: absolute;
-   top: -2px;
-   left: -2px;
-   background-size: 400%;
+   top: -3px;
+   left: -3px;
+   background-repeat: repeat-x;
+   background-size: 400% 100%;
    z-index: -1;
    filter: blur(5px);
    -webkit-filter: blur(5px);
-   width: calc(100% + 4px);
-   height: calc(100% + 4px);
-   animation: glowing-button 20s linear infinite;
+   width: calc(100% + 6px);
+   height: calc(100% + 6px);
+   animation: glowing 5s linear infinite;
    transition: opacity 0.3s ease-in-out;
    border-radius: 25px;
-}
-
-@keyframes glowing-button {
-   0% {
-      background-position: 0 0;
-   }
-
-   50% {
-      background-position: 400% 0;
-   }
-
-   100% {
-      background-position: 0 0;
-   }
 }
 
 .magic-button:after {
@@ -107,10 +93,51 @@ body {
    color: #ff8989;
 }
 
-#clear-canvas {
-   color: #ff8989;
+.magic {
+   background: repeating-linear-gradient(90deg,
+         rgba(255, 0, 0, 1) 0%,
+         rgba(255, 154, 0, 1) 10%,
+         rgba(208, 222, 33, 1) 20%,
+         rgba(79, 220, 74, 1) 30%,
+         rgba(63, 218, 216, 1) 40%,
+         rgba(47, 201, 226, 1) 50%,
+         rgba(28, 127, 238, 1) 60%,
+         rgba(95, 21, 242, 1) 70%,
+         rgba(186, 12, 248, 1) 80%,
+         rgba(251, 7, 217, 1) 90%,
+         rgba(255, 0, 0, 1) 100%);
+   background-repeat: repeat-x;
+   width: calc(100% + 20px);
+   height: calc(100% + 20px);
+   top: -10px;
+   left: -10px;
+   position: absolute;
+   background-size: 400% 100%;
+   z-index: -1;
+   filter: blur(10px);
+   -webkit-filter: blur(10px);
+   animation: glowing 10s linear infinite;
+   transition: opacity 0.3s ease-in-out;
 }
 
-#shade-mode {
-   background-color: #545454;
+@keyframes glowing {
+   0% {
+      background-position: 100% 50%
+   }
+
+   100% {
+      background-position: -33% 50%
+   }
+}
+
+.black {
+   background-color: black;
+}
+
+.white {
+   background-color: white;
+}
+
+.hidden {
+   display: none;
 }
