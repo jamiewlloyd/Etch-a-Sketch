@@ -33,3 +33,53 @@ function hoverFunctionality() {
    };
 };
 hoverFunctionality();
+
+// Resize Grid
+function formNewGrid(pixelNumber, pixelSize) {
+
+   mainContainer.replaceChildren();
+
+   for (let i = 0; i < pixelNumber; i++) {
+      let pixel = document.createElement('div');
+      pixel.classList.add('pixel');
+      pixel.setAttribute("style", "width:" + pixelSize + "px;height:" + pixelSize + "px;");
+      mainContainer.appendChild(pixel);
+   }
+};
+
+function resizeGrid() {
+   console.log('function called')
+   let newPixelCount;
+
+   while (true) {
+      let input = prompt("Please enter a number between 20 and 100:");
+
+      if (input === null) {
+         // User pressed Cancel
+
+         break;
+      }
+
+      newPixelCount = Number(input);
+
+      if (
+         !isNaN(newPixelCount) &&
+         newPixelCount >= 20 &&
+         newPixelCount <= 100 &&
+         input.trim() !== ""
+      ) {
+         let newRequiredPixels = newPixelCount * newPixelCount;
+         let newPixelResult = calcGrid(mainContainer, newPixelCount);
+
+         formNewGrid(newRequiredPixels, newPixelResult);
+         hoverFunctionality();
+         break;
+      } else {
+         alert("Invalid input! Please enter a valid number between 20 and 100.");
+      }
+   }
+
+}
+
+const resizeButton = document.querySelector('#grid-size');
+resizeButton.addEventListener("click", resizeGrid);
