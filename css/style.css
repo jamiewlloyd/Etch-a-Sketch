@@ -1,3 +1,7 @@
+:root {
+   --gridSize: 20;
+}
+
 body {
    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
@@ -9,10 +13,11 @@ body {
 }
 
 #grid-wrapper {
-   display: flex;
-   flex-wrap: wrap;
    width: 800px;
    height: 800px;
+   display: grid;
+   grid-template-columns: repeat(var(--gridSize), 1fr);
+   grid-template-rows: repeat(var(--gridSize), 1fr);
    border: 4px solid black;
    margin: 50px auto;
    position: relative;
@@ -117,7 +122,7 @@ body {
    filter: blur(10px);
    -webkit-filter: blur(10px);
    animation: glowing 10s linear infinite;
-   transition: opacity 0.3s ease-in-out;
+   transition: all 1s;
 }
 
 @keyframes glowing {
@@ -139,5 +144,11 @@ body {
 }
 
 .hidden {
-   display: none;
+   opacity: 0;
+   visibility: hidden;
+}
+
+.pixel {
+   width: 100%;
+   height: 100%;
 }
