@@ -11,13 +11,14 @@ let currentRequiredPixels;
 // form a grid from number of divs (required pixels) and the size of each (pixel result).
 function formGrid(gridSize, requiredPixels) {
    let cssRoot = document.querySelector(':root');
-   cssRoot.style.setProperty('--gridSize', gridSize)
+   cssRoot.style.setProperty('--gridSize', gridSize);
 
    for (let i = 0; i < requiredPixels; i++) {
       let pixel = document.createElement('div');
       pixel.classList.add('pixel');
       mainContainer.appendChild(pixel);
    }
+   hoverFunctionality();
    currentGridSize = gridSize;
    currentRequiredPixels = requiredPixels;
 };
@@ -26,25 +27,21 @@ function formGrid(gridSize, requiredPixels) {
 function hoverFunctionality() {
    let elements = document.getElementsByClassName("pixel");
 
-   for (let i = 0; i < elements.length; i++) {
-      elements[i].addEventListener('mouseenter', function (e) {
-         this.classList.add('black');
-      }, false);
-   };
+   if (pageState === 'magic') {
+      for (let i = 0; i < elements.length; i++) {
+         elements[i].classList.add('white');
+         elements[i].addEventListener('mouseenter', function (e) {
+            this.classList.add('hidden');
+         }, false);
+      };
+   } else {
+      for (let i = 0; i < elements.length; i++) {
+         elements[i].addEventListener('mouseenter', function (e) {
+            this.classList.add('black');
+         }, false);
+      };
+   }
 };
-
-// Enable magic mode hover effects
-function magicHoverFunctionality() {
-   let elements = document.getElementsByClassName("pixel");
-
-   for (let i = 0; i < elements.length; i++) {
-      elements[i].classList.add('white');
-      elements[i].addEventListener('mouseenter', function (e) {
-         this.classList.add('hidden');
-      }, false);
-   };
-};
-
 
 // Resize Grid
 function formNewGrid(gridSize, requiredPixels) {
@@ -66,7 +63,6 @@ function resizeGrid() {
 
       if (input === null) {
          // User pressed Cancel
-
          break;
       }
 
@@ -92,21 +88,24 @@ function resizeGrid() {
 
 //Grid Resize Check
 function resizeCheck(gridSize, requiredPixels) {
-   // if pageState = 'something {do something}
+   if (pageState === 'magic') {
+      changeToMagic(gridSize, requiredPixels);
+   } else {
+      formNewGrid(gridSize, requiredPixels);
+   }
 }
 
 // Magic Mode
 function changeToMagic(gridSize, requiredPixels) {
    mainContainer.replaceChildren();
+   pageState = 'magic';
 
    let magicBackground = document.createElement('div');
    magicBackground.classList.add('magic');
    mainContainer.appendChild(magicBackground);
 
    formGrid(gridSize, requiredPixels);
-   magicHoverFunctionality();
-
-   pageState = 'magic';
+   hoverFunctionality();
 }
 
 formGrid(gridSize, requiredPixels);
@@ -120,9 +119,7 @@ magicButton.addEventListener("click", () => {
    if (pageState !== 'magic') {
       changeToMagic(currentGridSize, currentRequiredPixels);
    } else {
-      mainContainer.replaceChildren();
-      formGrid(currentGridSize, currentRequiredPixels);
       pageState = 'default';
-      hoverFunctionality();
+      formNewGrid(currentGridSize, currentRequiredPixels);
    }
 });
