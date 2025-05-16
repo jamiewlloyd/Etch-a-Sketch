@@ -8,17 +8,20 @@ let requiredPixels = gridSize * gridSize;
 let currentGridSize;
 let currentRequiredPixels;
 
-// form a grid from number of divs (required pixels) and the size of each (pixel result).
+// form a grid from the given size and insert required pixels as diz.
 function formGrid(gridSize, requiredPixels) {
    let cssRoot = document.querySelector(':root');
    cssRoot.style.setProperty('--gridSize', gridSize);
 
    for (let i = 0; i < requiredPixels; i++) {
       let pixel = document.createElement('div');
-      pixel.classList.add('pixel');
+      pixel.classList.add('pixel', 'white');
       mainContainer.appendChild(pixel);
    }
+
    hoverFunctionality();
+
+   // Update variables
    currentGridSize = gridSize;
    currentRequiredPixels = requiredPixels;
 };
@@ -47,15 +50,20 @@ function hoverFunctionality() {
 function formNewGrid(gridSize, requiredPixels) {
 
    if (pageState === 'magic') {
+      mainContainer.classList.remove('white');
       changeToMagic(gridSize, requiredPixels);
    } else {
-      mainContainer.replaceChildren();
-      formGrid(gridSize, requiredPixels);
+      setTimeout(() => {
+         mainContainer.classList.toggle('white');
+         mainContainer.replaceChildren();
+         formGrid(gridSize, requiredPixels);
+      }
+         , 1000);
    }
 };
 
+// Check user input and pass along to check current page state, otherwise alert if invalid
 function resizeGrid() {
-   console.log('function called')
    let newGridSize;
 
    while (true) {
@@ -74,6 +82,7 @@ function resizeGrid() {
          newGridSize <= 100 &&
          input.trim() !== ""
       ) {
+         // Update variables
          currentRequiredPixels = newGridSize * newGridSize;
          currentGridSize = newGridSize;
 
@@ -86,7 +95,7 @@ function resizeGrid() {
 
 }
 
-//Grid Resize Check
+// Grid resize checks current page state to see which grid to form
 function resizeCheck(gridSize, requiredPixels) {
    if (pageState === 'magic') {
       changeToMagic(gridSize, requiredPixels);
@@ -97,20 +106,29 @@ function resizeCheck(gridSize, requiredPixels) {
 
 // Magic Mode
 function changeToMagic(gridSize, requiredPixels) {
-   mainContainer.replaceChildren();
-   pageState = 'magic';
+   let elements = document.getElementsByClassName("pixel");
+   for (let i = 1; i < elements.length; i++) {
+      elements[i].classList.add('fade-out');
+   };
 
-   let magicBackground = document.createElement('div');
+   const magicBackground = document.createElement('div');
    magicBackground.classList.add('magic');
+   magicBackground.classList.toggle('fade-in');
    mainContainer.appendChild(magicBackground);
 
-   formGrid(gridSize, requiredPixels);
-   hoverFunctionality();
+   setTimeout(() => {
+      while (mainContainer.childNodes.length > 1) {
+         mainContainer.removeChild(mainContainer.firstChild);
+      }
+      pageState = 'magic';
+      mainContainer.classList.toggle('white');
+      formGrid(gridSize, requiredPixels);
+      hoverFunctionality();
+   }
+      , 1000);
 }
 
-formGrid(gridSize, requiredPixels);
-hoverFunctionality();
-
+// Adding event listeners to buttons
 const resizeButton = document.querySelector('#grid-size');
 resizeButton.addEventListener("click", resizeGrid);
 
@@ -119,7 +137,14 @@ magicButton.addEventListener("click", () => {
    if (pageState !== 'magic') {
       changeToMagic(currentGridSize, currentRequiredPixels);
    } else {
+      const background = document.querySelector('.magic');
+      background.classList.toggle('fade-in');
+      background.classList.toggle('fade-out');
       pageState = 'default';
       formNewGrid(currentGridSize, currentRequiredPixels);
    }
 });
+
+// Initial page load default state
+formGrid(gridSize, requiredPixels);
+hoverFunctionality();
