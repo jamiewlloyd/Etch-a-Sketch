@@ -1,4 +1,4 @@
-const mainContainer = document.querySelector('#canvas');
+const canvas = document.querySelector('#canvas');
 
 let pageState = 'default';
 
@@ -16,7 +16,7 @@ function formGrid(gridSize, requiredPixels) {
    for (let i = 0; i < requiredPixels; i++) {
       let pixel = document.createElement('div');
       pixel.classList.add('pixel', 'white');
-      mainContainer.appendChild(pixel);
+      canvas.appendChild(pixel);
    }
 
    hoverFunctionality();
@@ -50,11 +50,11 @@ function hoverFunctionality() {
 function formNewGrid(gridSize, requiredPixels) {
 
    if (pageState === 'magic') {
-      mainContainer.classList.remove('white');
+      canvas.classList.remove('white');
       changeToMagic(gridSize, requiredPixels);
    } else {
-      mainContainer.classList.toggle('white');
-      mainContainer.replaceChildren();
+      canvas.classList.toggle('white');
+      canvas.replaceChildren();
       formGrid(gridSize, requiredPixels);
    }
 };
@@ -111,16 +111,16 @@ function changeToMagic(gridSize, requiredPixels) {
    const magicBackground = document.createElement('div');
    magicBackground.classList.add('magic');
    magicBackground.classList.toggle('fade-in');
-   mainContainer.appendChild(magicBackground);
+   canvas.appendChild(magicBackground);
 
    setTimeout(() => {
-      while (mainContainer.childNodes.length > 1) {
-         mainContainer.removeChild(mainContainer.firstChild);
+      while (canvas.childNodes.length > 1) {
+         canvas.removeChild(canvas.firstChild);
       }
       magicBackground.classList.toggle('fade-in');
       magicBackground.classList.toggle('glowing');
       pageState = 'magic';
-      mainContainer.classList.toggle('white');
+      canvas.classList.toggle('white');
       formGrid(gridSize, requiredPixels);
       hoverFunctionality();
    }
@@ -144,7 +144,7 @@ magicButton.addEventListener("click", () => {
 
       setTimeout(() => {
          console.log('this is delayed')
-         mainContainer.classList.toggle('white');
+         canvas.classList.toggle('white');
          formNewGrid(currentGridSize, currentRequiredPixels);
       }
          , 800);
