@@ -49,14 +49,28 @@ function hoverFunctionality() {
 
 // Resize Grid
 function formNewGrid(gridSize, requiredPixels) {
-
    if (pageState === 'magic') {
+      let elements = document.getElementsByClassName("pixel");
 
-      changeToMagic(gridSize, requiredPixels);
+      for (let i = 0; i < elements.length; i++) {
+         if (elements[i].classList.contains("hidden")) {
+            elements[i].classList.toggle('hidden');
+            elements[i].classList.toggle('fade-in');
+         }
+      };
+
+      setTimeout(() => {
+         canvas.replaceChildren();
+         formGrid(gridSize, requiredPixels);
+      }
+         , 800);
    } else {
-      canvas.classList.toggle('white');
-      canvas.replaceChildren();
-      formGrid(gridSize, requiredPixels);
+      fadePixels('fade-out');
+      setTimeout(() => {
+         canvas.replaceChildren();
+         formGrid(gridSize, requiredPixels);
+      }
+         , 800);
    }
 };
 
@@ -84,7 +98,7 @@ function resizeGrid() {
          currentRequiredPixels = newGridSize * newGridSize;
          currentGridSize = newGridSize;
 
-         resizeCheck(currentGridSize, currentRequiredPixels);
+         formNewGrid(currentGridSize, currentRequiredPixels);
          break;
       } else {
          alert("Invalid input! Please enter a valid number between 20 and 100.");
@@ -93,39 +107,35 @@ function resizeGrid() {
 
 }
 
-// Grid resize checks current page state to see which grid to form
-function resizeCheck(gridSize, requiredPixels) {
-   if (pageState === 'magic') {
-      changeToMagic(gridSize, requiredPixels);
-   } else {
-      formNewGrid(gridSize, requiredPixels);
-   }
-}
-
 // Magic Mode
 function changeToMagic(gridSize, requiredPixels) {
-   let elements = document.getElementsByClassName("pixel");
-
-   // Add fade out to existing canvas
-   for (let i = 0; i < elements.length; i++) {
-      elements[i].classList.add('fade-out');
-   };
+   fadePixels('fade-out');
 
    const magicBackground = document.createElement('div');
    magicBackground.classList.add('magic');
    wrapper.appendChild(magicBackground);
+   const whiteOverlay = document.createElement('div');
+   whiteOverlay.classList.add('overlay', 'fade-out');
+   wrapper.appendChild(whiteOverlay);
 
 
    setTimeout(() => {
-      while (canvas.childNodes.length > 1) {
-         canvas.removeChild(canvas.firstChild);
-      }
+      canvas.replaceChildren();
       pageState = 'magic';
       formGrid(gridSize, requiredPixels);
       canvas.classList.toggle('white');
       hoverFunctionality();
    }
       , 800);
+}
+
+// Fade existing pixels
+function fadePixels(inOut) {
+   let elements = document.getElementsByClassName("pixel");
+
+   for (let i = 0; i < elements.length; i++) {
+      elements[i].classList.add(inOut);
+   };
 }
 
 // Adding event listeners to buttons
@@ -138,11 +148,17 @@ magicButton.addEventListener("click", () => {
       changeToMagic(currentGridSize, currentRequiredPixels);
    } else {
       const background = document.querySelector('.magic');
+      const overlay = document.querySelector('.overlay');
 
-      background.classList.toggle('hidden');
+      overlay.classList.toggle('fade-out');
+      overlay.classList.toggle('fade-in');
+
       pageState = 'default';
 
       setTimeout(() => {
+         background.remove();
+         overlay.remove();
+         canvas.classList.toggle('white');
          formNewGrid(currentGridSize, currentRequiredPixels);
       }
          , 800);

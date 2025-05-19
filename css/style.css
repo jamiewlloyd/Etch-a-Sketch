@@ -138,12 +138,24 @@ body {
    animation: glowing 10s linear infinite;
 }
 
+.overlay {
+   width: 900px;
+   height: 900px;
+   position: relative;
+   background-color: white;
+   z-index: 2;
+   grid-column: 1;
+   grid-row: 1;
+}
+
 .fade-in {
    animation: fade-in 0.8s ease-in;
+   animation-fill-mode: forwards;
 }
 
 .fade-out {
    animation: fade-out 0.8s ease-out;
+   animation-fill-mode: forwards;
 }
 
 @keyframes glowing {
