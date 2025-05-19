@@ -1,4 +1,4 @@
-const mainContainer = document.querySelector('#grid-wrapper');
+const mainContainer = document.querySelector('#canvas');
 
 let pageState = 'default';
 
