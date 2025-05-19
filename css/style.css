@@ -122,19 +122,31 @@ body {
    z-index: -1;
    filter: blur(10px);
    -webkit-filter: blur(10px);
-   animation: glowing 10s linear infinite;
 }
 
 .fade-in {
-   animation: fade-in 1s;
+   animation: fade-in 0.8s ease-in;
 }
 
 .fade-out {
-   animation: fade-out 1s;
+   animation: fade-out 0.8s ease-out;
+}
+
+.glowing {
+   animation: glowing 10s linear infinite;
+}
+
+.pause {
+   animation-play-state: paused;
+   transition: opacity 0.8s;
 }
 
 @keyframes glowing {
    0% {
+      background-position: 0% 50%
+   }
+
+   50% {
       background-position: 100% 50%
    }
 

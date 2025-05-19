@@ -53,12 +53,9 @@ function formNewGrid(gridSize, requiredPixels) {
       mainContainer.classList.remove('white');
       changeToMagic(gridSize, requiredPixels);
    } else {
-      setTimeout(() => {
-         mainContainer.classList.toggle('white');
-         mainContainer.replaceChildren();
-         formGrid(gridSize, requiredPixels);
-      }
-         , 1000);
+      mainContainer.classList.toggle('white');
+      mainContainer.replaceChildren();
+      formGrid(gridSize, requiredPixels);
    }
 };
 
@@ -107,7 +104,7 @@ function resizeCheck(gridSize, requiredPixels) {
 // Magic Mode
 function changeToMagic(gridSize, requiredPixels) {
    let elements = document.getElementsByClassName("pixel");
-   for (let i = 1; i < elements.length; i++) {
+   for (let i = 0; i < elements.length; i++) {
       elements[i].classList.add('fade-out');
    };
 
@@ -120,12 +117,14 @@ function changeToMagic(gridSize, requiredPixels) {
       while (mainContainer.childNodes.length > 1) {
          mainContainer.removeChild(mainContainer.firstChild);
       }
+      magicBackground.classList.toggle('fade-in');
+      magicBackground.classList.toggle('glowing');
       pageState = 'magic';
       mainContainer.classList.toggle('white');
       formGrid(gridSize, requiredPixels);
       hoverFunctionality();
    }
-      , 1000);
+      , 800);
 }
 
 // Adding event listeners to buttons
@@ -138,10 +137,17 @@ magicButton.addEventListener("click", () => {
       changeToMagic(currentGridSize, currentRequiredPixels);
    } else {
       const background = document.querySelector('.magic');
-      background.classList.toggle('fade-in');
-      background.classList.toggle('fade-out');
+      background.classList.toggle('pause');
+      background.classList.toggle('glowing');
+      background.classList.toggle('hidden');
       pageState = 'default';
-      formNewGrid(currentGridSize, currentRequiredPixels);
+
+      setTimeout(() => {
+         console.log('this is delayed')
+         mainContainer.classList.toggle('white');
+         formNewGrid(currentGridSize, currentRequiredPixels);
+      }
+         , 800);
    }
 });
 
