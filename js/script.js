@@ -1,4 +1,5 @@
 const canvas = document.querySelector('#canvas');
+const container = document.querySelector('#wrapper');
 
 let pageState = 'default';
 
@@ -50,7 +51,7 @@ function hoverFunctionality() {
 function formNewGrid(gridSize, requiredPixels) {
 
    if (pageState === 'magic') {
-      canvas.classList.remove('white');
+
       changeToMagic(gridSize, requiredPixels);
    } else {
       canvas.classList.toggle('white');
@@ -104,24 +105,24 @@ function resizeCheck(gridSize, requiredPixels) {
 // Magic Mode
 function changeToMagic(gridSize, requiredPixels) {
    let elements = document.getElementsByClassName("pixel");
+
+   // Add fade out to existing canvas
    for (let i = 0; i < elements.length; i++) {
       elements[i].classList.add('fade-out');
    };
 
    const magicBackground = document.createElement('div');
    magicBackground.classList.add('magic');
-   magicBackground.classList.toggle('fade-in');
-   canvas.appendChild(magicBackground);
+   wrapper.appendChild(magicBackground);
+
 
    setTimeout(() => {
       while (canvas.childNodes.length > 1) {
          canvas.removeChild(canvas.firstChild);
       }
-      magicBackground.classList.toggle('fade-in');
-      magicBackground.classList.toggle('glowing');
       pageState = 'magic';
-      canvas.classList.toggle('white');
       formGrid(gridSize, requiredPixels);
+      canvas.classList.toggle('white');
       hoverFunctionality();
    }
       , 800);
@@ -137,14 +138,11 @@ magicButton.addEventListener("click", () => {
       changeToMagic(currentGridSize, currentRequiredPixels);
    } else {
       const background = document.querySelector('.magic');
-      background.classList.toggle('pause');
-      background.classList.toggle('glowing');
+
       background.classList.toggle('hidden');
       pageState = 'default';
 
       setTimeout(() => {
-         console.log('this is delayed')
-         canvas.classList.toggle('white');
          formNewGrid(currentGridSize, currentRequiredPixels);
       }
          , 800);
