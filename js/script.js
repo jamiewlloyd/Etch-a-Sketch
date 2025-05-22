@@ -140,17 +140,27 @@ function stopMagicMode() {
    pageState = 'default';
 
    setTimeout(() => {
+      canvas.classList.toggle('white');
       background.remove();
       overlay.remove();
-      canvas.classList.toggle('white');
       formNewGrid(currentGridSize, currentRequiredPixels);
    }
       , 800);
 }
 
-// Change state to shaded mode
-function changeToShaded(gridSize, requiredPixels) {
-
+// Check current state before Changing state to shaded mode
+function shadedCheck() {
+   if (pageState === 'magic') {
+      stopMagicMode();
+      setTimeout(() => {
+         pageState = 'shaded';
+         formNewGrid(currentGridSize, currentRequiredPixels);
+      }
+         , 500);
+   } else {
+      pageState = 'shaded';
+      formNewGrid(currentGridSize, currentRequiredPixels);
+   }
 }
 
 // Function to fade existing pixels in or out by adding CSS class
@@ -174,6 +184,9 @@ magicButton.addEventListener("click", () => {
       stopMagicMode();
    }
 });
+
+const shadedButton = document.querySelector('#shade-mode');
+shadedButton.addEventListener("click", shadedCheck);
 
 // Initial page load default state
 formGrid(gridSize, requiredPixels);
