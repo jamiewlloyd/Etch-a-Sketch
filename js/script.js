@@ -9,7 +9,7 @@ let requiredPixels = gridSize * gridSize;
 let currentGridSize;
 let currentRequiredPixels;
 
-// form a grid from the given size and insert required pixels as diz.
+// form a grid from the given size and insert required pixels as divs.
 function formGrid(gridSize, requiredPixels) {
    let cssRoot = document.querySelector(':root');
    cssRoot.style.setProperty('--gridSize', gridSize);
@@ -27,7 +27,7 @@ function formGrid(gridSize, requiredPixels) {
    currentRequiredPixels = requiredPixels;
 };
 
-// Enable default hover effects
+// Enable hover effects for all states
 function hoverFunctionality() {
    let elements = document.getElementsByClassName("pixel");
 
@@ -107,7 +107,7 @@ function resizeGrid() {
 
 }
 
-// Magic Mode
+// Change state to Magic Mode
 function changeToMagic(gridSize, requiredPixels) {
    fadePixels('fade-out');
 
@@ -118,7 +118,7 @@ function changeToMagic(gridSize, requiredPixels) {
    whiteOverlay.classList.add('overlay', 'fade-out');
    wrapper.appendChild(whiteOverlay);
 
-
+   // Set as timeout to allow smooth fading effect
    setTimeout(() => {
       canvas.replaceChildren();
       pageState = 'magic';
@@ -129,7 +129,7 @@ function changeToMagic(gridSize, requiredPixels) {
       , 800);
 }
 
-// Fade existing pixels
+// Function to fade existing pixels in or out by adding CSS class
 function fadePixels(inOut) {
    let elements = document.getElementsByClassName("pixel");
 
