@@ -129,6 +129,30 @@ function changeToMagic(gridSize, requiredPixels) {
       , 800);
 }
 
+// Function to stop magic mode
+function stopMagicMode() {
+   const background = document.querySelector('.magic');
+   const overlay = document.querySelector('.overlay');
+
+   overlay.classList.toggle('fade-out');
+   overlay.classList.toggle('fade-in');
+
+   pageState = 'default';
+
+   setTimeout(() => {
+      background.remove();
+      overlay.remove();
+      canvas.classList.toggle('white');
+      formNewGrid(currentGridSize, currentRequiredPixels);
+   }
+      , 800);
+}
+
+// Change state to shaded mode
+function changeToShaded(gridSize, requiredPixels) {
+
+}
+
 // Function to fade existing pixels in or out by adding CSS class
 function fadePixels(inOut) {
    let elements = document.getElementsByClassName("pixel");
@@ -147,21 +171,7 @@ magicButton.addEventListener("click", () => {
    if (pageState !== 'magic') {
       changeToMagic(currentGridSize, currentRequiredPixels);
    } else {
-      const background = document.querySelector('.magic');
-      const overlay = document.querySelector('.overlay');
-
-      overlay.classList.toggle('fade-out');
-      overlay.classList.toggle('fade-in');
-
-      pageState = 'default';
-
-      setTimeout(() => {
-         background.remove();
-         overlay.remove();
-         canvas.classList.toggle('white');
-         formNewGrid(currentGridSize, currentRequiredPixels);
-      }
-         , 800);
+      stopMagicMode();
    }
 });
 
