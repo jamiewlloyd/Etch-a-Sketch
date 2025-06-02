@@ -38,6 +38,22 @@ function hoverFunctionality() {
             this.classList.add('hidden');
          }, false);
       };
+   } else if (pageState === 'shaded') {
+      let colorPick;
+
+      const setColor = (e) => {
+         console.log(e);
+         colorPick = "#000000";
+         e.target.style.backgroundColor = colorPick;
+
+         if (e.target.style.opacity <= 0.9) {
+            e.target.style.opacity = +e.target.style.opacity + 0.1;
+            // +e.style.opacity to convert opacity from string to number
+         }
+      }
+      for (let i = 0; i < elements.length; i++) {
+         elements[i].addEventListener('mouseenter', setColor, false);
+      };
    } else {
       for (let i = 0; i < elements.length; i++) {
          elements[i].addEventListener('mouseenter', function (e) {
