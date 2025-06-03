@@ -127,12 +127,18 @@ function resizeGrid() {
 function changeToMagic(gridSize, requiredPixels) {
    fadePixels('fade-out');
 
+   const whiteOverlay = document.createElement('div');
+   whiteOverlay.classList.add('overlay');
+   wrapper.appendChild(whiteOverlay);
    const magicBackground = document.createElement('div');
    magicBackground.classList.add('magic');
    wrapper.appendChild(magicBackground);
-   const whiteOverlay = document.createElement('div');
-   whiteOverlay.classList.add('overlay', 'fade-out');
-   wrapper.appendChild(whiteOverlay);
+
+   setTimeout(() => {
+      const overlay = document.querySelector('.overlay');
+      overlay.classList.add('fade-out');
+   }
+      , 100);
 
    // Set as timeout to allow smooth fading effect
    setTimeout(() => {
@@ -173,6 +179,9 @@ function shadedCheck() {
          formNewGrid(currentGridSize, currentRequiredPixels);
       }
          , 500);
+   } else if (pageState === 'shaded') {
+      pageState = 'default';
+      formNewGrid(currentGridSize, currentRequiredPixels);
    } else {
       pageState = 'shaded';
       formNewGrid(currentGridSize, currentRequiredPixels);

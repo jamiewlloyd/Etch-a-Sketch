@@ -154,9 +154,14 @@ body {
 }
 
 .fade-out {
+   opacity: 0;
+   transition: opacity 0.8s;
+}
+
+/* .fade-out {
    animation: fade-out 0.8s ease-out;
    animation-fill-mode: forwards;
-}
+} */
 
 @keyframes glowing {
    0% {
