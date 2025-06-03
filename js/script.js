@@ -77,21 +77,21 @@ function formNewGrid(gridSize, requiredPixels) {
          canvas.replaceChildren();
          formGrid(gridSize, requiredPixels);
       }
-         , 800);
+         , 500);
    } else if (pageState === 'shaded') {
       fadePixels('fade-to-white');
       setTimeout(() => {
          canvas.replaceChildren();
          formGrid(gridSize, requiredPixels);
       }
-         , 800);
+         , 500);
    } else {
       fadePixels('fade-out');
       setTimeout(() => {
          canvas.replaceChildren();
          formGrid(gridSize, requiredPixels);
       }
-         , 800);
+         , 500);
    }
 };
 
@@ -157,7 +157,7 @@ function changeToMagic(gridSize, requiredPixels) {
       canvas.classList.toggle('white');
       hoverFunctionality();
    }
-      , 800);
+      , 500);
 }
 
 // Function to stop magic mode
@@ -176,7 +176,7 @@ function stopMagicMode() {
       overlay.remove();
       formNewGrid(currentGridSize, currentRequiredPixels);
    }
-      , 800);
+      , 500);
 }
 
 // Check current state before Changing state to shaded mode
@@ -188,7 +188,7 @@ function shadedCheck() {
          canvas.replaceChildren();
          formGrid(gridSize, requiredPixels);
       }
-         , 800);
+         , 500);
    } else if (pageState === 'shaded') {
       fadePixels('fade-to-white');
       pageState = 'default'
@@ -200,7 +200,7 @@ function shadedCheck() {
          canvas.replaceChildren();
          formGrid(gridSize, requiredPixels);
       }
-         , 800);
+         , 500);
    }
 }
 
