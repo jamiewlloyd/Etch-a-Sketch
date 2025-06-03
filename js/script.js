@@ -253,8 +253,11 @@ function fadePixels(inOut) {
 
 // Function to return random color
 function randomColor() {
-   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
-   return randomColor;
+   let color;
+   do {
+      color = Math.floor(Math.random() * 16777215);
+   } while (color === 16777215); // 16777215 is white (#ffffff)
+   return color.toString(16).padStart(6, '0');
 }
 
 // Adding event listeners to buttons
