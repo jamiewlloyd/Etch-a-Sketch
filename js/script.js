@@ -40,6 +40,7 @@ function hoverFunctionality() {
       };
    } else if (pageState === 'shaded') {
       for (let i = 0; i < elements.length; i++) {
+         elements[i].classList.remove('white');
          elements[i].classList.toggle('black');
          elements[i].classList.toggle('shaded');
          elements[i].addEventListener('mouseenter', (e) => incrementPixelOpacity(e.target), false);
@@ -72,6 +73,13 @@ function formNewGrid(gridSize, requiredPixels) {
          }
       };
 
+      setTimeout(() => {
+         canvas.replaceChildren();
+         formGrid(gridSize, requiredPixels);
+      }
+         , 800);
+   } else if (pageState === 'shaded') {
+      fadePixels('fade-to-white');
       setTimeout(() => {
          canvas.replaceChildren();
          formGrid(gridSize, requiredPixels);
@@ -122,7 +130,11 @@ function resizeGrid() {
 
 // Change state to Magic Mode
 function changeToMagic(gridSize, requiredPixels) {
-   fadePixels('fade-out');
+   if (pageState === 'shaded') {
+      fadePixels('fade-to-white');
+   } else {
+      fadePixels('fade-out');
+   }
 
    const whiteOverlay = document.createElement('div');
    whiteOverlay.classList.add('overlay');
@@ -172,16 +184,23 @@ function shadedCheck() {
    if (pageState === 'magic') {
       stopMagicMode();
       setTimeout(() => {
-         pageState = 'shaded';
-         formNewGrid(currentGridSize, currentRequiredPixels);
+         pageState = 'shaded'
+         canvas.replaceChildren();
+         formGrid(gridSize, requiredPixels);
       }
-         , 500);
+         , 800);
    } else if (pageState === 'shaded') {
-      pageState = 'default';
+      fadePixels('fade-to-white');
+      pageState = 'default'
       formNewGrid(currentGridSize, currentRequiredPixels);
    } else {
-      pageState = 'shaded';
-      formNewGrid(currentGridSize, currentRequiredPixels);
+      fadePixels('fade-out');
+      setTimeout(() => {
+         pageState = 'shaded'
+         canvas.replaceChildren();
+         formGrid(gridSize, requiredPixels);
+      }
+         , 800);
    }
 }
 

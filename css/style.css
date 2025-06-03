@@ -159,10 +159,10 @@ body {
    transition: opacity 0.8s;
 }
 
-/* .fade-out {
-   animation: fade-out 0.8s ease-out;
+.fade-to-white {
+   animation: fade-to-white 0.8s ease-out;
    animation-fill-mode: forwards;
-} */
+}
 
 @keyframes glowing {
    0% {
@@ -184,13 +184,13 @@ body {
    }
 }
 
-@keyframes fade-out {
+@keyframes fade-to-white {
    from {
-      opacity: 1;
+      background-color: black;
    }
 
    to {
-      opacity: 0;
+      background-color: white;
    }
 }
 
