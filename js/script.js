@@ -52,6 +52,16 @@ function hoverFunctionality() {
 
          pixel.style.setProperty("--pixel_opacity", opacity);
       }
+   } else if (pageState === 'random') {
+
+      for (let i = 0; i < elements.length; i++) {
+         elements[i].classList.remove('white');
+         elements[i].classList.toggle('hidden');
+         elements[i].style.backgroundColor = "#" + randomColor();
+         elements[i].addEventListener('mouseenter', function (e) {
+            this.classList.remove('hidden');
+         }, false);
+      };
    } else {
       for (let i = 0; i < elements.length; i++) {
          elements[i].addEventListener('mouseenter', function (e) {
@@ -63,8 +73,9 @@ function hoverFunctionality() {
 
 // Resize Grid
 function formNewGrid(gridSize, requiredPixels) {
+   let elements = document.getElementsByClassName("pixel");
+
    if (pageState === 'magic') {
-      let elements = document.getElementsByClassName("pixel");
 
       for (let i = 0; i < elements.length; i++) {
          if (elements[i].classList.contains("hidden")) {
@@ -80,6 +91,13 @@ function formNewGrid(gridSize, requiredPixels) {
          , 500);
    } else if (pageState === 'shaded') {
       fadePixels('fade-to-white');
+      setTimeout(() => {
+         canvas.replaceChildren();
+         formGrid(gridSize, requiredPixels);
+      }
+         , 500);
+   } else if (pageState === 'random') {
+      fadePixels('fade-out');
       setTimeout(() => {
          canvas.replaceChildren();
          formGrid(gridSize, requiredPixels);
@@ -204,6 +222,26 @@ function shadedCheck() {
    }
 }
 
+// Function to Check current state before change to random mode
+function randomCheck() {
+   if (pageState === 'magic') {
+      stopMagicMode();
+      pageState = 'random';
+      formNewGrid(currentGridSize, currentRequiredPixels);
+   } else if (pageState === 'shaded') {
+      fadePixels('fade-to-white');
+      pageState = 'random'
+      formNewGrid(currentGridSize, currentRequiredPixels);
+   } else if (pageState === 'random') {
+      pageState = 'default'
+      formNewGrid(currentGridSize, currentRequiredPixels);
+   } else {
+      fadePixels('fade-out');
+      pageState = 'random'
+      formNewGrid(currentGridSize, currentRequiredPixels);
+   }
+}
+
 // Function to fade existing pixels in or out by adding CSS class
 function fadePixels(inOut) {
    let elements = document.getElementsByClassName("pixel");
@@ -211,6 +249,12 @@ function fadePixels(inOut) {
    for (let i = 0; i < elements.length; i++) {
       elements[i].classList.add(inOut);
    };
+}
+
+// Function to return random color
+function randomColor() {
+   const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+   return randomColor;
 }
 
 // Adding event listeners to buttons
@@ -228,6 +272,9 @@ magicButton.addEventListener("click", () => {
 
 const shadedButton = document.querySelector('#shade-mode');
 shadedButton.addEventListener("click", shadedCheck);
+
+const randomButton = document.querySelector('#random-mode');
+randomButton.addEventListener("click", randomCheck);
 
 // Initial page load default state
 formGrid(gridSize, requiredPixels);
