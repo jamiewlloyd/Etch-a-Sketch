@@ -46,9 +46,7 @@ function hoverFunctionality() {
       };
 
       function incrementPixelOpacity(pixel) {
-         console.log(pixel)
          const currOpacity = window.getComputedStyle(pixel).getPropertyValue("--pixel_opacity");
-         console.log(currOpacity)
          const opacity = Math.min(Number(currOpacity) + 0.2, 1);
 
          pixel.style.setProperty("--pixel_opacity", opacity);
