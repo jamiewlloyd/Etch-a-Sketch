@@ -118,7 +118,7 @@ function resizeGrid() {
    let newGridSize;
 
    while (true) {
-      let input = prompt("Please enter a number between 20 and 100:");
+      let input = prompt("Please enter a number between 20 and 70:");
 
       if (input === null) {
          // User pressed Cancel
@@ -130,7 +130,7 @@ function resizeGrid() {
       if (
          !isNaN(newGridSize) &&
          newGridSize >= 20 &&
-         newGridSize <= 100 &&
+         newGridSize <= 70 &&
          input.trim() !== ""
       ) {
          // Update variables
@@ -140,7 +140,7 @@ function resizeGrid() {
          formNewGrid(currentGridSize, currentRequiredPixels);
          break;
       } else {
-         alert("Invalid input! Please enter a valid number between 20 and 100.");
+         alert("Invalid input! Please enter a valid number between 20 and 70.");
       }
    }
 
@@ -216,7 +216,7 @@ function shadedCheck() {
       setTimeout(() => {
          pageState = 'shaded'
          canvas.replaceChildren();
-         formGrid(gridSize, requiredPixels);
+         formGrid(currentGridSize, currentRequiredPixels);
       }
          , 500);
    }
