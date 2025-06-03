@@ -1,5 +1,6 @@
 :root {
    --gridSize: 20;
+   --grid_opacity: 0;
 }
 
 body {
@@ -208,6 +209,10 @@ body {
 .hidden {
    opacity: 0;
    visibility: hidden;
+}
+
+.shaded {
+   opacity: var(--pixel_opacity, 0);
 }
 
 .pixel {

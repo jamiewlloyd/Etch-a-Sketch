@@ -39,21 +39,20 @@ function hoverFunctionality() {
          }, false);
       };
    } else if (pageState === 'shaded') {
-      let colorPick;
-
-      const setColor = (e) => {
-         console.log(e);
-         colorPick = "#000000";
-         e.target.style.backgroundColor = colorPick;
-
-         if (e.target.style.opacity <= 0.9) {
-            e.target.style.opacity = +e.target.style.opacity + 0.1;
-            // +e.style.opacity to convert opacity from string to number
-         }
-      }
       for (let i = 0; i < elements.length; i++) {
-         elements[i].addEventListener('mouseenter', setColor, false);
+         elements[i].classList.toggle('black');
+         elements[i].classList.toggle('shaded');
+         elements[i].addEventListener('mouseenter', (e) => incrementPixelOpacity(e.target), false);
       };
+
+      function incrementPixelOpacity(pixel) {
+         console.log(pixel)
+         const currOpacity = window.getComputedStyle(pixel).getPropertyValue("--pixel_opacity");
+         console.log(currOpacity)
+         const opacity = Math.min(Number(currOpacity) + 0.2, 1);
+
+         pixel.style.setProperty("--pixel_opacity", opacity);
+      }
    } else {
       for (let i = 0; i < elements.length; i++) {
          elements[i].addEventListener('mouseenter', function (e) {
