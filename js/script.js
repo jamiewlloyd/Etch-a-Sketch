@@ -260,6 +260,29 @@ function randomColor() {
    return color.toString(16).padStart(6, '0');
 }
 
+//Function to reset canvas to default state
+function resetCanvas() {
+   gridSize = 20;
+   requiredPixels = gridSize * gridSize;
+
+   if (pageState === 'magic') {
+      stopMagicMode();
+      setTimeout(() => {
+         pageState = 'default'
+         canvas.replaceChildren();
+         formGrid(gridSize, requiredPixels);
+      }
+         , 500);
+   } else if (pageState === 'shaded') {
+      fadePixels('fade-to-white');
+      pageState = 'default';
+      formNewGrid(gridSize, requiredPixels);
+   } else {
+      pageState = 'default';
+      formNewGrid(gridSize, requiredPixels);
+   }
+}
+
 // Adding event listeners to buttons
 const resizeButton = document.querySelector('#grid-size');
 resizeButton.addEventListener("click", resizeGrid);
@@ -278,6 +301,9 @@ shadedButton.addEventListener("click", shadedCheck);
 
 const randomButton = document.querySelector('#random-mode');
 randomButton.addEventListener("click", randomCheck);
+
+const resetButton = document.querySelector('#reset-canvas');
+resetButton.addEventListener("click", resetCanvas);
 
 // Initial page load default state
 formGrid(gridSize, requiredPixels);
