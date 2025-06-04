@@ -226,8 +226,11 @@ function shadedCheck() {
 function randomCheck() {
    if (pageState === 'magic') {
       stopMagicMode();
-      pageState = 'random';
-      formNewGrid(currentGridSize, currentRequiredPixels);
+      setTimeout(() => {
+         pageState = 'random';
+         formNewGrid(currentGridSize, currentRequiredPixels);
+      }
+         , 500);
    } else if (pageState === 'shaded') {
       fadePixels('fade-to-white');
       pageState = 'random'
