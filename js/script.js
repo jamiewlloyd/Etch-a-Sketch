@@ -1,6 +1,7 @@
 const canvas = document.querySelector('#canvas');
 const container = document.querySelector('#wrapper');
 
+let cssRoot = document.querySelector(':root');
 let pageState = 'default';
 
 let gridSize = 20;
@@ -11,7 +12,6 @@ let currentRequiredPixels;
 
 // form a grid from the given size and insert required pixels as divs.
 function formGrid(gridSize, requiredPixels) {
-   let cssRoot = document.querySelector(':root');
    cssRoot.style.setProperty('--gridSize', gridSize);
 
    for (let i = 0; i < requiredPixels; i++) {
