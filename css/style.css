@@ -1,5 +1,7 @@
 :root {
    --gridSize: 20;
+   --magicBackground: #222;
+   --magicText: #fff;
 }
 
 body {
@@ -80,11 +82,6 @@ body {
    font-size: 16px;
 }
 
-.magic-button {
-   color: #222;
-   background: #fff;
-}
-
 .magic-button:before {
    content: "";
    background: linear-gradient(90deg,
@@ -119,14 +116,22 @@ body {
    position: absolute;
    width: 100%;
    height: 100%;
-   background: #fff;
+   color: var(--magicText);
+   background: var(--magicBackground);
    left: 0;
    top: 0;
    border-radius: 50px;
 }
 
+.shade-active {
+   background: linear-gradient(90deg,
+         #222 0%,
+         #464646 50%,
+         #919191 100%);
+}
+
 #reset-canvas {
-   color: #ff8989;
+   color: #ff8a8a;
 }
 
 .magic {
@@ -194,6 +199,32 @@ body {
 
    100% {
       background-position: 400% 50%
+   }
+}
+
+@keyframes random {
+   0% {
+      background-color: #cc1961;
+   }
+
+   20% {
+      background-color: #5f15f2;
+   }
+
+   40% {
+      background-color: #ff9a00;
+   }
+
+   60% {
+      background-color: #ba0cf8;
+   }
+
+   80% {
+      background-color: #2ea317;
+   }
+
+   100% {
+      background-color: #cc1961;
    }
 }
 
