@@ -11,7 +11,7 @@ body {
 #main-container {
    width: 1300px;
    height: 100vh;
-   min-height: 1000px;
+   min-height: 800px;
    margin: 0 auto;
    display: grid;
    grid-template-columns: 400px 1fr;
