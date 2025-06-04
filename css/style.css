@@ -177,6 +177,11 @@ body {
    transition: opacity 0.5s;
 }
 
+.fade-out-magic {
+   opacity: 0;
+   transition: opacity 0.8s;
+}
+
 .fade-to-white {
    animation: fade-to-white 0.5s ease-out;
    animation-fill-mode: forwards;

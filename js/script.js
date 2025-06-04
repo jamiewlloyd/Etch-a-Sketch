@@ -163,9 +163,9 @@ function changeToMagic(gridSize, requiredPixels) {
 
    setTimeout(() => {
       const overlay = document.querySelector('.overlay');
-      overlay.classList.add('fade-out');
+      overlay.classList.add('fade-out-magic');
    }
-      , 100);
+      , 200);
 
    // Set as timeout to allow smooth fading effect
    setTimeout(() => {
@@ -183,7 +183,7 @@ function stopMagicMode() {
    const background = document.querySelector('.magic');
    const overlay = document.querySelector('.overlay');
 
-   overlay.classList.toggle('fade-out');
+   overlay.classList.toggle('fade-out-magic');
    overlay.classList.toggle('fade-in');
 
    pageState = 'default';
